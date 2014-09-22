@@ -402,6 +402,18 @@ class AmazonClass
 					}
 				}
 
+				//! リクエストの失敗したときに何度もリクエストしに行ってしまうため、
+				//! ダミーでデータベースに入れておく
+				$sqlQuery = 'SELECT * FROM '.$this->_getDB($countury).' where asin="'.$asinArray[$idx].'"';
+				$result = mysql_query($sqlQuery);
+
+				$sql = "INSERT INTO ".$this->_getDB($countury)." (id, asin ) VALUES ( 'null','%s' )";
+				$sql = sprintf( $sql, $asinArray[$idx] );
+				$result_flag = mysql_query($sql);
+				if (!$result_flag) {
+				    die('INSERTクエリーが失敗しました。'.mysql_error());
+				}
+
 				//! 10個の区切りか最後の時は、リクエストに行く
 				if( ( count($lookUpItems ) != 10 ) && ( $idx != $size-1 ) ){
 					continue;

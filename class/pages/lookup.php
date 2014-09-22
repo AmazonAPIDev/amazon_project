@@ -125,8 +125,8 @@ class LookupPage extends Page {
 			$value["diff"] = $value['us']['price']/100*$rate - $value['ja']['price'];
 
 			//! 価格差率が10%以上
-			if( ( $value["diff"] * 100 / $value["ja"]["price"] )  > 10.0 &&
-					( $value["us"]["rank"] < 30000 ) ){
+			if( ( $value["diff"] * 100 / $value["ja"]["price"] )  > 15.0 &&
+					( $value["us"]["rank"] != 0 ) && ( $value["us"]["rank"] < 100000 ) ){
 				$value["mark"] = "1";
 			}else{
 				$value["mark"] = "0";
